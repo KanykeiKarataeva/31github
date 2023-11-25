@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www
+            - ./_docker/nginx/conf.d/:/etc/nginx/conf.d
+        ports:
+            - "8876:80"
+        depends_on:
+            -   app
+        container_name: kindergarten_nginx
+    app:
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            - ./:/var/www
+        depends_on:
+            -   mysql
+        container_name: kindergarten_app
+
+    mysql:
+        image: mysql:latest
+        restart: always
+        environment:
+            MYSQL_DATABASE: kindergarten_db
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: user
+            MYSQL_PASSWORD: secret
+        ports:
+            - "3235:3306"
+        command:
+            --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+        container_name: mysql
+        volumes:
+            - ./_docker/mysql:/var/lib/mysql
+#    mysql:
+#        image: mysql:8.0
+#        restart: always
+#        volumes:
+#            -   ./tmp/db:/var/lib/mysql
+#        environment:
+#            MYSQL_DATABASE: kindergarten_db
+#            MYSQL_ROOT_PASSWORD: root
+#
+#        ports:
+#            -   "3235:3306"
+#        command:
+#            --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+#        container_name: mysql
+
+
