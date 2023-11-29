@@ -12,8 +12,5 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user_default_value = [
-            ''
-        ];
     }
 }
