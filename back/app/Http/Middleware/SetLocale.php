@@ -17,9 +17,9 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {
-
+//        dd($request->route());
         $langPrefix = ltrim($request->route()->getPrefix(), '/');
-        if($langPrefix){
+        if($request->route()){
             $langPrefix = explode('/', $langPrefix);
             $d = strval(array_search('ru', $langPrefix, true));
 
