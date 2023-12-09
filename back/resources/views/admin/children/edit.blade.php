@@ -28,24 +28,6 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInput" class="form-label">@lang('lang.child_gender'):</label>
-                    <div class="radioDiv">
-                        <input type="radio" name="gender" id="option-1" value="Male">
-                        <input type="radio" name="gender" id="option-2" value="Female">
-                        <label for="option-1" class="option option-1">
-                            <div class="dot"></div>
-                            <span>@lang('lang.gender_male')</span>
-                        </label>
-                        <label for="option-2" class="option option-2">
-                            <div class="dot"></div>
-                            <span>@lang('lang.gender_female')</span>
-                        </label>
-                    </div>
-                    @error('birth_date')
-                    <p class="text-danger">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
                     <label for="exampleInput" class="form-label">@lang('lang.child_parent'):</label>
                     <select class="form-control col-md-12" name="parent_id" id="parent_id" @error('parent_id') is-invalid @enderror required autocomplete="parent_id">
                         @foreach($parents as $parent)
@@ -66,17 +48,6 @@
                         <label for="exampleInput" class="form-label">@lang('lang.child_photo'):</label>
                         <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg" name="photo" id="photo">
                         @error('photo')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <label for="exampleInput" class="form-label">@lang('lang.child_birth_cert'):</label>
-                        <input type="file" class="form-control" name="birth_certification" id="birth_certification">
-                        @error('birth_certification')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
