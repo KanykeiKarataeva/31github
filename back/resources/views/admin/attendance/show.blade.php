@@ -1,5 +1,110 @@
 @extends('layouts.admin_layout')
 @section('content')
+    <style>
+        .accordion {
+            background-color: #4da3ff;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 20px;
+            transition: 0.4s;
+            border-radius: 10px;
+
+        }
+
+        .active, .accordion:hover {
+            background-color: #007bff;
+        }
+
+        .accordion:after {
+            content: '\002B';
+            color: black;
+            font-weight: bold;
+            float: right;
+            margin-left: 20px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: #e6f2ff;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-radius: 10px;
+        }
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .container {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            font-size: 20px;
+            user-select: none;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 1.5em;
+            width: 1.5em;
+            background-color: #ccc;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+
+
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+            box-shadow: none;
+            background-color: limegreen;
+            transform: rotateX(360deg);
+        }
+
+        .container input:checked ~ .checkmark:hover {
+            box-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
+            left: 0.7em;
+            top: 0.4em;
+            width: 0.25em;
+            height: 0.5em;
+            border: solid white;
+            border-width: 0 0.15em 0.15em 0;
+            box-shadow: 0.1em 0.1em 0em 0 rgba(0,0,0,0.3);
+            transform: rotate(45deg);
+        }
+    </style>
     <div class="content-wrapper">
         <div class="container" style="margin-top: 10px;">
             @if (session('status'))
@@ -77,6 +182,20 @@
 
 
         <script>
+
+            function searchByName(value){
+                let table = document.getElementById('TableId');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[0].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
+                }
+            }
 
             let acc = document.getElementsByClassName("accordion");
             let i;
