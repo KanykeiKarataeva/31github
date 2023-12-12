@@ -11,67 +11,6 @@
                     </div>
                 @endif
             </div>
-            <div class="position-relative table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:5%">
-                            id
-                        </th>
-                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:20%">
-                            @lang('lang.name')
-                        </th>
-                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:20%">
-                            @lang('lang.surname')
-                        </th>
-                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:30%">
-                            @lang('lang.child_parent')
-                        </th>
-                        <th class="position-relative pr-4" style="text-align: center;vertical-align:middle;overflow:hidden;cursor:pointer;width:30%">
-                            @lang('lang.action')
-                        </th>
-                    </tr>
-                    <tr class="table-sm">
-                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchById(this.value)"></th>
-                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchByName(this.value)"></th>
-                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchBySurname(this.value)"></th>
-                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchByParent(this.value)"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="enrollTable">
-                    @foreach ($enrolls as $enroll)
-                        <tr class="odd">
-                            <td class="sorting_1">{{$enroll->id}}</td>
-                            <td>{{$enroll->name}}</td>
-                            <td>{{$enroll->surname}}</td>
-                            <td>{{$enroll->parent->name}}</td>
-                            <td>
-                                <div style="float: left;
-                                display: block;
-                                width: 50%;" class="text-center">
-                                    <a href="{{route('admin.enroll.show', $enroll)}}" class="text-success"><i class="fas fa-check-circle"></i></a>
-                                </div>
-                                <div style="float: right;
-                                display: block;
-                                width: 50%;" class="text-center">
-                                    <form action="{{route('admin.enroll.delete', $enroll)}}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button id="delete_button" type="button" class="border-0 bg-transparent" onclick="deletedBtn(this)">
-                                            <i title="delete" class="fas fa-trash text-danger" role="button"></i>
-                                        </button>
-                                    </form>
-                                </div>
-
-
-                            </td>
-                            {{-- td>rfed</td> --}}
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-                </table>
-            </div>
         </div>
         <script>
             function deletedBtn(button){

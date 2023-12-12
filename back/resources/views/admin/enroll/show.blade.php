@@ -37,18 +37,6 @@
                             </div>
                         </li>
                         <li class="list-group-item">
-                            <b>@lang('lang.child_med_cert')</b>
-                            <div class="">
-                                <img class="img-fluid img" src="{{asset($enroll->med_certificate)}}" alt="child's medical certificate" style="width:70%;">
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <b>@lang('lang.child_med_dis')</b>
-                            <div class="">
-                                <img class="img-fluid img" src="{{asset($enroll->med_disability)}}" alt="child's medical certificate" style="width:70%;">
-                            </div>
-                        </li>
-                        <li class="list-group-item">
                             <b>@lang('lang.child_group')</b>
                             <select class="form-control col-6 groupId @error('groupId') is-invalid @enderror" name="groupId" required autocomplete="name" autofocus>
                                 <option selected></option>
