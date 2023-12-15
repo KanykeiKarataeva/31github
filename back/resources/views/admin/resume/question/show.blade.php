@@ -12,9 +12,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a href="{{route('admin.resume.question.index')}}" class="btn btn-gradient-primary my-1">@lang('lang.back_btn')</a>
-            </div>
         </div>
     </div>
 @endsection

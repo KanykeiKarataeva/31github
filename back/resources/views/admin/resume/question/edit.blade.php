@@ -14,10 +14,6 @@
                         rows="5"
                         cols="100"
                         placeholder="Write a new question...">{{$question->question}}</textarea>
-{{--                    <input type="text" class="form-control col-6" name="question" id="question" value="{{$question->question}}" required autofocus oninvalid="this.setCostomValidity('пожалуйста, заполните это поле')" oninput="this.setCostomValidity('')">--}}
-{{--                    @error('question')--}}
-{{--                    <p class="text-danger">{{$message}}</p>--}}
-{{--                    @enderror--}}
                 </div>
 
                 <div class="modal-footer">
