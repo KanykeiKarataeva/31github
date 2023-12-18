@@ -72,7 +72,40 @@
             </div>
         </div>
         <script>
-
+            function deletedBtn(button){
+                let text = "@lang('lang.delete_question_resume')";
+                if (confirm(text) === true) {
+                    button.setAttribute('type', 'submit');
+                } else {
+                    button.setAttribute('type', 'button');
+                }
+            }
+            function searchById(value){
+                let table = document.getElementById('resumeTable');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[0].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
+                }
+            }
+            function searchByFullName(value){
+                let table = document.getElementById('resumeTable');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[1].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
+                }
+            }
             function searchByDate(value){
                 let table = document.getElementById('resumeTable');
                 let rows = table.rows;

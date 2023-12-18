@@ -7,45 +7,68 @@
                 @csrf
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
+                    <ul class="list-group list-group-unbordered mb-3">
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_name')</b>
+                            <div class="">{{$enroll->name}}</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_surname')</b>
+                            <div class="">{{$enroll->surname}}</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_birth_date')</b>
+                            <div class="">{{$enroll->birth_date}}</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_parent')</b>
+                            <div class="">{{$enroll->parent->name}} {{$enroll->parent->surname}}</div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_photo')</b>
+                            <div class="">
+                                <img class="img-fluid img" src="{{asset($enroll->photo)}}" alt="child's photo" style="width:70%;">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_birth_cert')</b>
+                            <div class="">
+                                <img class="img-fluid img" src="{{asset($enroll->birth_certificate)}}" alt="child's birth certificate" style="width:70%;">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_med_cert')</b>
+                            <div class="">
+                                <img class="img-fluid img" src="{{asset($enroll->med_certificate)}}" alt="child's medical certificate" style="width:70%;">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_med_dis')</b>
+                            <div class="">
+                                <img class="img-fluid img" src="{{asset($enroll->med_disability)}}" alt="child's medical certificate" style="width:70%;">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>@lang('lang.child_group')</b>
+                            <select class="form-control col-6 groupId @error('groupId') is-invalid @enderror" name="groupId" required autocomplete="name" autofocus>
+                                <option selected></option>
+                            @foreach($groups as $group)
+                                <option value="{{$group->id}}">{{$group->name}}</option>
+                            @endforeach
+                            </select>
+                            @error('groupId')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="modal-footer">
                 <a href="{{route('admin.enroll.index')}}" class="btn btn-gradient-primary my-1">@lang('lang.back_btn')</a>
                 <button type="submit" class="btn btn-gradient-secondary my-1">@lang('lang.approve_btn')</button>
             </div>
-                @foreach ($feedbacks as $feedback)
-                    <tr class="odd">
-                        <td>{{$feedback->name}} {{$feedback->surname}}</td>
-                        @php $created_at = \Carbon\Carbon::parse($feedback->created_at)->format('Y-m-d '); @endphp
-                        <td>{{$created_at}}</td>
-                        <td>@for($i = 1; $i <= 5; $i++)
-                                @if($i <= $feedback->stars)
-                                    <span class="fa fa-star checked"></span>
-                                @else
-                                    <span class="fa fa-star"></span>
-                                @endif
-                            @endfor</td>
-                        <td>
-                            <div style="float: left;
-                                display: block;
-                                width: 50%;" class="text-center">
-                                <a href="{{route('admin.feedback.show', $feedback->id)}}"><i class="fas fa-eye"></i></a>
-                            </div>
-                            <div style="float: left;
-                                display: block;
-                                width: 50%;" class="text-center">
-                                <form action="{{route('admin.feedback.delete', $feedback->id)}}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button id="delete_button" type="button" class="border-0 bg-transparent" onclick="deletedBtn(this)">
-                                        <i title="delete" class="fas fa-trash text-danger" role="button"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                        {{-- td>rfed</td> --}}
-                    </tr>
-                @endforeach
             </form>
         </div>
     </div>

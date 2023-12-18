@@ -11,117 +11,68 @@
                     </div>
                 @endif
             </div>
-        </div>
-    </div>
-    <div class="card-header text-center" ><h3>@lang('lang.main_gallery')</h3>
-        @if (session('status'))
-            <div class="alert alert-dismissible white" style="background-color: #9b73f2">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {{ session('status') }}
-            </div>
-        @endif
-    </div>
-    <div class="container">
-        <form action="{{route('admin.mainGallery.create')}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="files" class="col-md-4 col-form-label text-md-end">@lang('lang.add_image'):</label>
-                <div class="col-md-6">
-                    <input id="image" type="file" class="form-control" accept="image/*" name="images[]"multiple>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputFile" class="col-md-4 col-form-label text-md-end">@lang('lang.add_video'):</label>
-                <div class="col-md-6">
-                    <input id="video" type="file" class="form-control" accept="video/*" name="videos[]" multiple>
-
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-gradient-secondary my-1">@lang('lang.saveBtn')</button>
-            </div>
-        </form>
-
-        <div class="row">
-            @php
-                $i = 1;
-            @endphp
-            @foreach($galleries as $gallery)
-                <div class="column" >
-                    @if($gallery->image == null)
-                        <video width="280" height="200" controls onclick="openModal();currentSlide({{$i}})" class="hover-shadow cursor">
-                            <source src="{{asset($gallery->video)}}" type="video/mp4">.
-                        </video>
-                    @else
-                        <img src="{{asset($gallery->image)}}" style="width:280px; height:200px" onclick="openModal();currentSlide({{$i}})" class="hover-shadow cursor">
-                    @endif
-                    @php
-                        $i = $i + 1;
-                    @endphp
-                </div>
-            @endforeach
-        </div>
-
-
-        <div id="myModal" class="modal">
-            <div class="modal-content" style="background-color: transparent">
-                <span class="close cursor" onclick="closeModal()">&times;</span>
-                @php
-                    $i = 1;
-                @endphp
-                @foreach($galleries as $gallery)
-                    <div class="mySlides">
-                        <form action="{{route('admin.mainGallery.delete', $gallery->id)}}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button id="delete_button" type="button" class="border-0 bg-transparent" onclick="deletedBtn(this)">
-                                <i title="delete" class="fas fa-trash text-danger" role="button" style="color: white; position: absolute; top: 65px; right: 20px; font-size: 20px; font-weight: bold;"></i>
-                            </button>
-                        </form>
-                        <div class="numbertext">{{$i}} / {{$galleries->count()}}</div>
-                        @if($gallery->image==null)
-                            <video style="height: 100%" controls >
-                                <source src="{{asset($gallery->video)}}" type="video/mp4">.
-                            </video>
-                        @else
-                            <img src="{{asset($gallery->image)}}" style="height: 100%">
-                        @endif
-                        @php
-                            $i = $i + 1;
-                        @endphp
-                    </div>
-                @endforeach
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-                <div class="caption-container">
-                    <p id="caption"></p>
-                </div>
+            <div class="position-relative table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:5%">
+                            id
+                        </th>
+                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:20%">
+                            @lang('lang.name')
+                        </th>
+                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:20%">
+                            @lang('lang.surname')
+                        </th>
+                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:30%">
+                            @lang('lang.child_parent')
+                        </th>
+                        <th class="position-relative pr-4" style="text-align: center;vertical-align:middle;overflow:hidden;cursor:pointer;width:30%">
+                            @lang('lang.action')
+                        </th>
+                    </tr>
+                    <tr class="table-sm">
+                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchById(this.value)"></th>
+                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchByName(this.value)"></th>
+                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchBySurname(this.value)"></th>
+                        <th class=""><input class="form-control form-control-sm" value="" oninput="searchByParent(this.value)"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="enrollTable">
+                    @foreach ($enrolls as $enroll)
+                        <tr class="odd">
+                            <td class="sorting_1">{{$enroll->id}}</td>
+                            <td>{{$enroll->name}}</td>
+                            <td>{{$enroll->surname}}</td>
+                            <td>{{$enroll->parent->name}}</td>
+                            <td>
+                                <div style="float: left;
+                                display: block;
+                                width: 50%;" class="text-center">
+                                    <a href="{{route('admin.enroll.show', $enroll)}}" class="text-success"><i class="fas fa-check-circle"></i></a>
+                                </div>
+                                <div style="float: right;
+                                display: block;
+                                width: 50%;" class="text-center">
+                                    <form action="{{route('admin.enroll.delete', $enroll)}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button id="delete_button" type="button" class="border-0 bg-transparent" onclick="deletedBtn(this)">
+                                            <i title="delete" class="fas fa-trash text-danger" role="button"></i>
+                                        </button>
+                                    </form>
+                                </div>
 
 
-                <div class="row">
-                    @php
-                        $i = 1;
-                    @endphp
-                    @foreach($galleries as $gallery)
-                        <div class="column">
-                            @if($gallery->image==null)
-                                <video class="demo cursor" style="width:100%" onclick="currentSlide({{$i}})" alt="{{$gallery->created_at}}" controls >
-                                    <source src="{{asset($gallery->video)}}" type="video/mp4">.
-                                </video>
-                            @else
-                                <img class="demo cursor" src="{{asset($gallery->image)}}" style="width:100%" onclick="currentSlide({{$i}})" alt="{{$gallery->created_at}}" >
-                            @endif
-                            @php
-                                $i = $i + 1;
-                            @endphp
-                        </div>
+                            </td>
+                            {{-- td>rfed</td> --}}
+                        </tr>
                     @endforeach
-                </div>
+
+                    </tbody>
+                </table>
             </div>
         </div>
-
         <script>
             function deletedBtn(button){
                 let text = "@lang('lang.delete_question_group')";
@@ -131,48 +82,58 @@
                     button.setAttribute('type', 'button');
                 }
             }
-            function openModal() {
-                document.getElementById("myModal").style.display = "block";
-            }
-
-            function closeModal() {
-                document.getElementById("myModal").style.display = "none";
-            }
-
-            let slideIndex = 1;
-            showSlides(slideIndex);
-
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
-            }
-
-            function currentSlide(n) {
-                showSlides(slideIndex = n);
-            }
-
-            function showSlides(n) {
-                let i;
-                let slides = document.getElementsByClassName("mySlides");
-                let dots = document.getElementsByClassName("demo");
-                let captionText = document.getElementById("caption");
-                if (n > slides.length) {slideIndex = 1}
-                if (n < 1) {slideIndex = slides.length}
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
+            function searchById(value){
+                let table = document.getElementById('enrollTable');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[0].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
                 }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex-1].style.display = "block";
-                dots[slideIndex-1].className += " active";
-                captionText.innerHTML = dots[slideIndex-1].alt;
             }
-
-            let prev = document.getElementsByClassName("prev");
-            let next = document.getElementsByClassName("next");
-
-            prev.addEventListener("keydown", plusSlides(-1));
-            next.addEventListener("keydown", plusSlides(1));
+            function searchByName(value){
+                let table = document.getElementById('enrollTable');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[1].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
+                }
+            }
+            function searchBySurname(value){
+                let table = document.getElementById('enrollTable');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[2].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
+                }
+            }
+            function searchByParent(value){
+                let table = document.getElementById('enrollTable');
+                let rows = table.rows;
+                let n = rows.length;
+                for(let i = 0; i < n; i++){
+                    if(rows[i].cells[3].innerHTML.indexOf(value) === -1){
+                        rows[i].className = 'd-none';
+                    }
+                    else{
+                        rows[i].className = '';
+                    }
+                }
+            }
         </script>
     </div>
 @endsection

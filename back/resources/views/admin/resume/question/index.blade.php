@@ -35,6 +35,17 @@
             <div class="position-relative table-responsive">
                 <table class="table table-hover">
                     <thead>
+                    <tr>
+                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:5%">
+                            id
+                        </th>
+                        <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:50%">
+                            @lang('lang.question')
+                        </th>
+                        <th class="position-relative pr-4" style="text-align: center;vertical-align:middle;overflow:hidden;cursor:pointer;width:30%">
+                            @lang('lang.action')
+                        </th>
+                    </tr>
                     <tr class="table-sm">
                         <th class=""><input class="form-control form-control-sm" value="" oninput="searchById(this.value)"></th>
                         <th class=""><input class="form-control form-control-sm" value="" oninput="searchByQuestion(this.value)"></th>
