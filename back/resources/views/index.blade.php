@@ -1,72 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .rate {
-            float: left;
-            height: 46px;
-            padding: 0 10px;
-        }
-        .rate:not(:checked) > input {
-            position:absolute;
-            top:-9999px;
-        }
-        .rate:not(:checked) > label {
-            float:right;
-            width:1em;
-            overflow:hidden;
-            white-space:nowrap;
-            cursor:pointer;
-            font-size:40px;
-            color:#ccc;
-        }
-        .rate:not(:checked) > label:before {
-            content: '★ ';
-        }
-        .rate > input:checked ~ label {
-            color: #ffc700;
-        }
-        .rate:not(:checked) > label:hover,
-        .rate:not(:checked) > label:hover ~ label {
-            color: #deb217;
-        }
-        .rate > input:checked + label:hover,
-        .rate > input:checked + label:hover ~ label,
-        .rate > input:checked ~ label:hover,
-        .rate > input:checked ~ label:hover ~ label,
-        .rate > label:hover ~ input:checked ~ label {
-            color: #c59b08;
-        }
-        .checked {
-            color: orange;
-        }
-        .avatar-button {
-            font-size: 1.5rem;
-            text-align: center;
-            overflow: visible;
-            border: 0;
-            background-color: transparent;
-            cursor: pointer;
-            margin: 0;
-            padding: 0;
-            bottom: 0;
-        }
-
-        .avatar-text {
-            height: 90px;
-            width: 90px;
-            align-items: center;
-            color: #fff;
-            display:block;
-            background-color: #673ab7;
-            font-size: 2.5rem;
-            border-radius: 50%;
-            vertical-align: center;
-            justify-content: center;
-            padding: 0.9rem;
-        }
-
-    </style>
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div>
@@ -129,19 +63,6 @@
                         <div class="facility-text bg-primary">
                             <h3 class="text-primary mb-3">@lang('lang.pros_parking')</h3>
                             <p class="mb-0">@lang('lang.pros_parking_msg')</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="facility-item">
-                        <div class="facility-icon bg-success">
-                            <span class="bg-success"></span>
-                            <i class="fa fa-futbol fa-3x text-success"></i>
-                            <span class="bg-success"></span>
-                        </div>
-                        <div class="facility-text bg-success">
-                            <h3 class="text-success mb-3">@lang('lang.pros_playground')</h3>
-                            <p class="mb-0">@lang('lang.pros_playground_msg')</p>
                         </div>
                     </div>
                 </div>

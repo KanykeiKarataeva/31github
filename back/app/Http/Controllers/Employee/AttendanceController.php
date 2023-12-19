@@ -36,6 +36,9 @@ class AttendanceController extends Controller
             'date' => 'required',
             'children' => 'required'
         ]);
+        $days = Attendance::where('group_id', $data['group_id'])
+            ->where('date', $data['date'])
+            ->get();
         $date = Attendance::where('group_id', $data['group_id'])
             ->where('date', $data['date'])
             ->get();
@@ -57,6 +60,7 @@ class AttendanceController extends Controller
         $date = \Carbon\Carbon::parse($data['date']);
         $year = $date->format('Y');
         $month = $date->format('m');
+        $days = $date->format('d');
         $children = DB::table('groups')
             ->leftJoin('children', 'children.group_id', '=', 'groups.id')
             ->leftJoin('users', 'users.id', '=', 'children.parent_id')

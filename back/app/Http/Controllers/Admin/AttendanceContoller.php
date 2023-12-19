@@ -23,6 +23,7 @@ class AttendanceContoller extends Controller
         $date = \Carbon\Carbon::parse($data['date']);
         $year = $date->format('Y');
         $month = $date->format('m');
+        $days = $date->format('d');
         $groups = Group::all();
         $children = DB::table('children')
             ->leftJoin('groups', 'groups.id', '=', 'children.group_id')
