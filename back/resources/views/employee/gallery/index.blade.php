@@ -9,27 +9,10 @@
             <form action="{{route('employee.gallery.create', $group_id[0]->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="files" class="col-md-4 col-form-label text-md-end">@lang('lang.add_image'):</label>
-                    <div class="col-md-6">
-                        <input id="image" type="file" class="form-control" accept="image/*" name="images[]"multiple>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="exampleInputFile" class="col-md-4 col-form-label text-md-end">@lang('lang.add_video'):</label>
                     <div class="col-md-6">
                         <input id="video" type="file" class="form-control" accept="video/*" name="videos[]" multiple>
 
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputFile" class="col-md-4 col-form-label text-md-end">@lang('lang.add_info'):</label>
-                    <div class="col-md-6">
-                        <textarea
-                            id="info"
-                            name="info"
-                            rows="5"
-                            cols="40"
-                            placeholder="@lang('lang.add_info_plh')"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -72,38 +55,6 @@
                                     </ol>
                                 @endif
                                 <div class="carousel-inner" style="max-width: 500px; overflow: hidden">
-                                    @foreach($galleries as $gallery)
-                                        @if($created_at_date === $gallery->created_at)
-                                            @if($gallery->video === null)
-                                                @if($j === 0)
-                                                    <div class="carousel-item active">
-                                                        <img class="d-block w-100" src="{{asset($gallery->image)}}" >
-                                                    </div>
-                                                    @php $j++; @endphp
-                                                @else
-                                                    <div class="carousel-item">
-                                                        <img class="d-block w-100" src="{{asset($gallery->image)}}" alt="Second slide">
-                                                    </div>
-                                                @endif
-                                            @else
-                                                @if($j === 0)
-                                                    <div class="carousel-item active">
-                                                        <video class="d-block w-100" controls >
-                                                            <source src="{{asset($gallery->video)}}">.
-                                                        </video>
-                                                    </div>
-                                                    @php $j++; @endphp
-                                                @else
-                                                    <div class="carousel-item">
-                                                        <video class="d-block w-100" controls >
-                                                            <source src="{{asset($gallery->video)}}">.
-                                                        </video>
-                                                    </div>
-                                                @endif
-                                            @endif
-                                            @php $text = $gallery->info @endphp
-                                        @endif
-                                    @endforeach
                                 </div>
                                 @if($count[$index] > 1)
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators{{$index}}" role="button" data-slide="prev">
