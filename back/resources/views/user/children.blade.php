@@ -25,30 +25,6 @@
                             @method('patch')
                             @csrf
                             <div class="card-body">
-                                <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                    <img
-                                        src="{{asset($child->photo)}}"
-                                        alt="user-avatar"
-                                        class="d-block rounded img-fluid"
-                                        height="100"
-                                        width="100"
-                                        id="uploadedAvatar"
-                                    />
-                                    <div class="">
-                                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                            <input
-                                                type="file"
-                                                id="photo"
-                                                name="photo"
-                                                class="account-file-input form-control"
-                                            />
-                                        </label>
-                                        <p class="text-muted mb-0">@lang('lang.profile_photo_msg')</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-0"/>
-                            <div class="card-body">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <h6 for="name" class="form-label"><b>@lang('lang.child_name'):</b></h6>
@@ -98,17 +74,6 @@
                                     <div class="mb-3 col-md-6">
                                         <img class="img-fluid" src="{{asset($child->med_certificate)}}">
                                     </div>
-                                    @if($child->med_disability != null)
-                                        <div class="mb-3 col-md-6">
-                                            <h6 for="med_disability" class="form-label"><b>@lang('lang.child_med_dis'):</b></h6>
-                                            <input type="file" class="form-control" id="med_disability"
-                                                   name="med_disability" placeholder="" value="">
-                                        </div>
-                                        <div class="mb-3 col-md-6"></div>
-                                        <div class="mb-3 col-md-6">
-                                            <img class="img-fluid" src="{{asset($child->med_disability)}}">
-                                        </div>
-                                    @endif
                                 </div>
                                 <div class="mt-auto">
                                     <button type="submit" class="btn btn-primary ms-auto float-end rounded-pill">@lang('lang.save_btn')
