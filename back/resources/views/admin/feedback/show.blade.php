@@ -32,14 +32,6 @@
                             <b>@lang('lang.feedback_comment')</b>
                             <div class="">{{$feedback[0]->comment}}</div>
                         </li>
-                        <li class="list-group-item">
-                            <b>@lang('lang.email')</b>
-                            <div class="">{{$feedback[0]->email}}</div>
-                        </li>
-                        <li class="list-group-item">
-                            <b>@lang('lang.phone_number')</b>
-                            <div class="">{{$feedback[0]->phone_number}}</div>
-                        </li>
                     </ul>
 
                     <div class="modal-footer">

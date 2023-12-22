@@ -20,20 +20,6 @@
                 <div class="position-relative table-responsive">
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:30%">
-                                @lang('lang.full_name')
-                            </th>
-                            <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:20%">
-                                @lang('lang.date_of_comp')
-                            </th>
-                            <th class="position-relative pr-4" style="vertical-align:middle;overflow:hidden;cursor:pointer;width:20%">
-                                @lang('lang.feedback_grade')
-                            </th>
-                            <th class="position-relative pr-4" style="text-align: center;vertical-align:middle;overflow:hidden;cursor:pointer;width:40%">
-                                @lang('lang.action')
-                            </th>
-                        </tr>
                         <tr class="table-sm">
                             <th class=""><input class="form-control form-control-sm" value="" oninput="searchByFullName(this.value)"></th>
                         </tr>
@@ -51,24 +37,6 @@
                                             <span class="fa fa-star"></span>
                                         @endif
                                     @endfor</td>
-                                <td>
-                                    <div style="float: left;
-                                display: block;
-                                width: 50%;" class="text-center">
-                                        <a href="{{route('admin.feedback.show', $feedback->id)}}"><i class="fas fa-eye"></i></a>
-                                    </div>
-                                    <div style="float: left;
-                                display: block;
-                                width: 50%;" class="text-center">
-                                        <form action="{{route('admin.feedback.delete', $feedback->id)}}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button id="delete_button" type="button" class="border-0 bg-transparent" onclick="deletedBtn(this)">
-                                                <i title="delete" class="fas fa-trash text-danger" role="button"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
                                 {{-- td>rfed</td> --}}
                             </tr>
                         @endforeach

@@ -18,16 +18,9 @@ class FeedbackController extends Controller
         return view('admin.feedback.index', compact('feedbacks'));
     }
 
-    public function delete(Feedback $feedback){
-        $feedback->delete();
-        $message = Lang::get('lang.delete_answer_feedback');
-        return redirect()->route('admin.feedback.index')->with('status', $message);
-    }
-
     public function show(Feedback $feedback){
         $feedback = DB::table('feedback')
             ->leftJoin('users', 'users.id', '=', 'feedback.parent_id')
-            ->where('feedback.id', $feedback->id)
             ->select('feedback.stars', 'feedback.comment', 'users.name', 'users.surname', 'users.profile_photo', 'users.email', 'users.phone_number')
             ->get();
         return view('admin.feedback.show', compact('feedback'));
