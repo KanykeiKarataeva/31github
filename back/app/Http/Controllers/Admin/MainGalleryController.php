@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MainGalleryController extends Controller
 {
-    public function index(){
-        $galleries = MainGallery::all();
-        return view('admin.mainGallery.index', compact('galleries'));
-    }
-
     public function create(Request $request){
         if($request->has('images')){
             foreach ($request->file('images') as $image) {
