@@ -45,14 +45,6 @@ class ChildrenController extends Controller
             'med_disability' => ''
         ]);
 
-        $photo = Storage::disk('public')->put('childImages/photos', $data['photo']);
-        $photo = "storage/".$photo;
-        $birth_cert = Storage::disk('public')->put('childImages/birthCertificates', $data['birth_certificate']);
-        $birth_cert = "storage/".$birth_cert;
-        $med_cert = Storage::disk('public')->put('childImages/medCertificates', $data['med_certificate']);
-        $med_cert = "storage/".$med_cert;
-        $med_disability = Storage::disk('public')->put('childImages/meDisabilities', $data['med_disability']);
-        $med_disability = "storage/".$med_disability;
 
         $child = Child::create([
             'name' => $data['name'],
@@ -96,25 +88,6 @@ class ChildrenController extends Controller
         $data = $request->validated();
         DB::beginTransaction();
         $photo = $child->photo;
-        $birth_certificate = $child->birth_certificate;
-        $med_certificate = $child->med_certificate;
-        $med_disability = $child->med_disability;
-        if(array_key_exists('photo', $data)){
-            $image = Storage::disk('public')->put('childImages/photos', $data['photo']);
-            $photo = "storage/".$image;
-        }
-        if(array_key_exists('birth_certificate', $data)){
-            $image = Storage::disk('public')->put('childImages/birthCertificates', $data['birth_certificate']);
-            $birth_certificate = "storage/".$image;
-        }
-        if(array_key_exists('med_certificate', $data)){
-            $image = Storage::disk('public')->put('childImages/medCertificates', $data['med_certificate']);
-            $med_certificate = "storage/".$image;
-        }
-        if(array_key_exists('med_disability', $data)){
-            $image = Storage::disk('public')->put('childImages/meDisabilities', $data['med_disability']);
-            $med_disability = "storage/".$image;
-        }
         $child->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
