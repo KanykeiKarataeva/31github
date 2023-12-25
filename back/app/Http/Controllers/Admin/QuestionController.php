@@ -28,23 +28,6 @@ class QuestionController extends Controller
         return response()->json($question);
     }
 
-    public function edit(Question $question){
-        return view('admin.resume.question.edit', compact('question'));
-    }
-
-    public function show(Question $question){
-        return view('admin.resume.question.show', compact('question'));
-    }
-
-    public function update(UpdateResumeQuestionRequest $request, Question $question){
-        $data = $request->validated();
-        DB::beginTransaction();
-        $question->update([
-            'question' => $data['question'],
-        ]);
-        DB::commit();
-        return redirect()->route('admin.resume.question.index')->with('status', 'New question was added.');
-    }
 
     public function delete(Question $question){
         $question->delete();

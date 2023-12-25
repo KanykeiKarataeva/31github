@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Lang;
 
 class ResumeController extends Controller
 {
+    public function edit(Question $question){
+        return view('admin.resume.question.edit', compact('question'));
+    }
+
+    public function show(Question $question){
+        return view('admin.resume.question.show', compact('question'));
+    }
+
     public function index(){
         $resumes = Resume::all();
         $answers = Answer::all();
