@@ -53,35 +53,7 @@ class AttendanceController extends Controller
         return response()->setStatusCode(500);
     }
 
-    public function showArchive(Request $request){
-        $data = $request->validate([
-            'date' => 'required',
-        ]);
-        $date = \Carbon\Carbon::parse($data['date']);
-        $year = $date->format('Y');
-        $month = $date->format('m');
-        $days = $date->format('d');
-        $children = DB::table('groups')
-            ->leftJoin('children', 'children.group_id', '=', 'groups.id')
-            ->leftJoin('users', 'users.id', '=', 'children.parent_id')
-            ->where('groups.teacher_id', auth()->user()->id)
-            ->select('children.id', 'children.name', 'children.surname', 'children.birth_date', 'groups.id as group_id')
-            ->get();
-        $group_id = Group::where('teacher_id', auth()->user()->id)
-            ->select('id')
-            ->get();
-        $attendance = Attendance::where('group_id', $group_id[0]->id)
-            ->whereYear('date', $year)
-            ->whereMonth('date', $month)
-            ->orderBy('date', 'asc')
-            ->select('date', 'children')
-            ->get();
-        if(!($attendance && $attendance->count())){
-            $attendance = null;
-            return view('employee.attendance.archive', compact('children', 'attendance'));
-        }
-        return view('employee.attendance.archive', compact('children', 'attendance'));
-    }
+
 
     public function editArchive(Request $request){
         $data = $request->validate([
